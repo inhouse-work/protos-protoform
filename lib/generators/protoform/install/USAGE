@@ -1,0 +1,8 @@
+Description:
+    Installs Phlex Rails and Protoform
+
+Example:
+    bin/rails generate protoform:install
+
+    This will create:
+        app/views/forms/application_form.rb
