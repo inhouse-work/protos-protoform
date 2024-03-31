@@ -1,7 +1,7 @@
 RSpec.describe Protoform::Namespace do
   describe "#namespace" do
     it "yields a child namespace" do
-      parent = described_class.new("foo", parent: nil, object: nil)
+      parent = described_class.new(:foo, parent: nil, object: nil)
       parent.namespace("bar") do |child|
         expect(child).to be_a(described_class)
         expect(child.key).to eq("bar")
@@ -11,7 +11,7 @@ RSpec.describe Protoform::Namespace do
 
   describe "#field" do
     it "yields the field" do
-      parent = described_class.new("foo", parent: nil, object: nil)
+      parent = described_class.new(:foo, parent: nil, object: nil)
       parent.field("bar") do |child|
         expect(child).to be_a(Protoform::Field)
         expect(child.key).to eq("bar")
@@ -22,7 +22,7 @@ RSpec.describe Protoform::Namespace do
   describe "#collection" do
     it "yields a namespace collection" do
       parent = described_class.new(
-        "foo",
+        :foo,
         parent: nil,
         object: double("object", bar: [{ baz: "A" }])
       )
@@ -37,35 +37,34 @@ RSpec.describe Protoform::Namespace do
   describe "#serialize" do
     it "returns the serialized representation of the fields" do
       object = double("object", bar: "A", baz: "B")
-      namespace = described_class.new("foo", parent: nil, object:) do |parent|
-        parent.field("bar")
-        parent.field("baz")
+      namespace = described_class.new(:foo, parent: nil, object:) do |parent|
+        parent.field(:bar)
+        parent.field(:baz)
       end
 
-      expect(namespace.serialize).to eq({ "bar" => "A", "baz" => "B" })
+      expect(namespace.serialize).to eq({ bar: "A", baz: "B" })
     end
   end
 
   describe "#each" do
     it "yields each field" do
-      namespace = described_class.new("foo", parent: nil, object: nil) do |parent|
-        parent.field("bar")
-        parent.field("baz")
+      namespace = described_class.new(:foo, parent: nil, object: nil) do |parent|
+        parent.field(:bar)
+        parent.field(:baz)
       end
 
       enumerator = namespace.each
 
-      expect(enumerator.next.key).to eq("bar")
-      expect(enumerator.next.key).to eq("baz")
+      expect(enumerator.next.key).to eq(:bar)
+      expect(enumerator.next.key).to eq(:baz)
     end
   end
 
   describe "#assign" do
     it "assigns the value to the fields" do
-      object = double("object", bar: nil, baz: nil)
-      namespace = described_class.new("foo", parent: nil, object:) do |parent|
-        parent.field("bar")
-        parent.field("baz")
+      namespace = described_class.new(:foo, parent: nil, object: nil) do |parent|
+        parent.field(:bar)
+        parent.field(:baz)
       end
 
       values = { bar: "A", baz: "B" }
