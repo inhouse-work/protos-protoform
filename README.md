@@ -1,12 +1,9 @@
 # Protoform
 
-A fork of [Superform](https://github.com/rubymonolith/superform).
+A fork of [Superform](https://github.com/rubymonolith/superform). Uses
+[protos](https://github.com/inhouse-work/protos) as base components.
 
-```ruby
-Protoform.configure do |config|
-  config.component = ApplicationComponent
-end
-```
+This is a more opinionated version of Superform.
 
 ## Development
 
