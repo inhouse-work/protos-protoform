@@ -4,9 +4,10 @@ module Protoform
   class NamespaceCollection < Node
     include Enumerable
 
-    def initialize(key, parent:, &template)
+    def initialize(key, parent:, field_class:, &template)
       super(key, parent:)
       @template = template
+      @field_class = field_class
       @namespaces = enumerate(parent_collection)
     end
 
@@ -40,6 +41,7 @@ module Protoform
       parent.class.new(
         index,
         parent: self,
+        field_class: @field_class,
         **kwargs,
         &@template
       )

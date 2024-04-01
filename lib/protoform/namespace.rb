@@ -88,6 +88,7 @@ module Protoform
       create_child(
         key:,
         child_class: NamespaceCollection,
+        field_class: @field_class,
         &block
       )
     end

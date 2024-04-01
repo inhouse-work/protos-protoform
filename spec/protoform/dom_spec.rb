@@ -5,6 +5,8 @@ RSpec.describe Protoform::DOM do
     lineage.reduce(nil) do |parent, (key, klass)|
       if klass.is_a?(Class) && klass.to_s == "Protoform::FieldCollection"
         klass.new(field: parent).field
+      elsif klass.is_a?(Class) && klass.to_s == "Protoform::NamespaceCollection"
+        klass.new(key, parent:, field_class: Protoform::Field)
       elsif klass.is_a?(Class)
         klass.new(key, parent:)
       else

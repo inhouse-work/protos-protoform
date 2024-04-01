@@ -11,7 +11,7 @@ class TestForm < Protoform::Rails::Form
       render contact.field(:phone).input(type: :tel)
     end
 
-    collection(:addresses) do |address|
+    collection(:addresses).each do |address|
       render address.field(:street).input(type: :text)
     end
   end
@@ -54,10 +54,19 @@ RSpec.describe Protoform::Rails::Form, type: :view do
       ]
     )
 
-    render TestForm.new(
+    form = TestForm.new(
       model,
       helpers: double("Helpers", form_authenticity_token: "token", url_for: "/")
     )
+
+    form.assign(
+      name: "Test",
+      email: "",
+      contact: { phone: "" },
+      addresses: [{ street: "" }]
+    )
+
+    render form
   end
 
   it "renders the form" do
@@ -73,6 +82,6 @@ RSpec.describe Protoform::Rails::Form, type: :view do
     expect(page).to have_field(type: "text", name: "something[name]")
     expect(page).to have_field(type: "email", name: "something[email]")
     expect(page).to have_field(type: "tel", name: "something[contact][phone]")
-    expect(page).to have_field(type: "text", name: "something[addresses][][street]")
+    expect(page).to have_field(type: "text", name: "something[addresses][0][street]")
   end
 end

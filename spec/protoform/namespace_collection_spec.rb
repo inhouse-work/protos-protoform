@@ -16,7 +16,7 @@ RSpec.describe Protoform::NamespaceCollection do
       )
 
       namespace = Protoform::Namespace.new(:foo, parent: nil, object:)
-      collection = described_class.new(:bars, parent: namespace) do |collection|
+      collection = described_class.new(:bars, parent: namespace, field_class: Protoform::Field) do |collection|
         collection.field(:baz)
       end
 
