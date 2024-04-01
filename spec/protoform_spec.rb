@@ -71,7 +71,7 @@ RSpec.describe Protoform do
           name: { first: "Brad", last: "Gessler" },
           nicknames: %w[Brad Bradley],
           addresses: [
-            { street: "Main St", city: "Salem", state: nil },
+            { street: "Main St", city: "Salem", state: "New Mexico" },
             { street: "Wall St", city: "New York", state: "New York" }
           ],
           one: { two: { three: { four: 100 } } }

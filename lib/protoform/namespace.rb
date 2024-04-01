@@ -113,7 +113,7 @@ module Protoform
     def assign(hash)
       tap do
         each do |child|
-          child.assign hash[child.key]
+          child.assign hash[child.key] if hash.key? child.key
         end
       end
     end
