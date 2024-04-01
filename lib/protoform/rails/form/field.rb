@@ -23,27 +23,27 @@ module Protoform
       # Now all calls to `label` will have the `text-bold` class applied to it.
       class Field < Protoform::Field
         def button(...)
-          Components::ButtonComponent.new(self, ...)
+          Components::Button.new(self, ...)
         end
 
         def input(...)
-          Components::InputComponent.new(self, ...)
+          Components::Input.new(self, ...)
         end
 
         def checkbox(...)
-          Components::CheckboxComponent.new(self, ...)
+          Components::Checkbox.new(self, ...)
         end
 
         def label(...)
-          Components::LabelComponent.new(self, ...)
+          Components::Label.new(self, ...)
         end
 
         def textarea(...)
-          Components::TextareaComponent.new(self, ...)
+          Components::Textarea.new(self, ...)
         end
 
         def select(*collection, **attributes, &)
-          Components::SelectField.new(
+          Components::Select.new(
             self,
             collection: collection,
             **attributes,
