@@ -29,8 +29,11 @@ module Protoform
     private
 
     def build_field(**kwargs)
-      current_index = @index += 1
       @field.class.new(current_index, parent: @field, **kwargs)
+    end
+
+    def current_index
+      @index += 1
     end
   end
 end

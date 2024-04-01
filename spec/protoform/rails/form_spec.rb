@@ -3,15 +3,26 @@
 class TestForm < Protoform::Rails::Form
   def template
     render field(:name).input(type: :text)
+    render field(:email).input(type: :email)
   end
 end
 
 RSpec.describe Protoform::Rails::Form, type: :view do
   before do
     model_name = double("ModelName", param_key: "something")
-    model = double("Model", model_name:, persisted?: true)
-    helpers = double("Helpers", form_authenticity_token: "token", url_for: "/")
-    render TestForm.new(model, helpers:)
+    model = double(
+      "Model",
+      model_name:,
+      persisted?: true,
+      addresses: [
+        double("Address", street: "123 Fake St")
+      ]
+    )
+
+    render TestForm.new(
+      model,
+      helpers: double("Helpers", form_authenticity_token: "token", url_for: "/")
+    )
   end
 
   it "renders the form" do
@@ -25,5 +36,6 @@ RSpec.describe Protoform::Rails::Form, type: :view do
 
   it "renders the form fields" do
     expect(page).to have_field(type: "text", name: "something[name]")
+    expect(page).to have_field(type: "email", name: "something[email]")
   end
 end
