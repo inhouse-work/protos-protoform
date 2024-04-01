@@ -11,7 +11,7 @@ module Protoform
 
         private
 
-        def default_attributes
+        def default_attrs
           {
             for: dom.id
           }

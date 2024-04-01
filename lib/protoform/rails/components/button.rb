@@ -15,7 +15,7 @@ module Protoform
           attrs.fetch(:value, dom.value).titleize
         end
 
-        def default_attributes
+        def default_attrs
           {
             id: dom.id,
             name: dom.name,

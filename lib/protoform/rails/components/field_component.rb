@@ -6,7 +6,7 @@ module Protoform
       class FieldComponent < BaseComponent
         private
 
-        def default_attributes
+        def default_attrs
           {
             id: dom.id,
             name: dom.name
