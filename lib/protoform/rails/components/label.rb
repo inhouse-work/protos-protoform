@@ -3,7 +3,7 @@
 module Protoform
   module Rails
     module Components
-      class Label < BaseComponent
+      class Label < Component
         def template(&content)
           content ||= proc { field.key.to_s.titleize }
           label(**attrs, &content)

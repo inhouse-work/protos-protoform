@@ -3,7 +3,7 @@
 module Protoform
   module Rails
     module Components
-      class FieldComponent < BaseComponent
+      class FieldComponent < Component
         private
 
         def default_attrs

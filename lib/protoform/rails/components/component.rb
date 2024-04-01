@@ -3,7 +3,7 @@
 module Protoform
   module Rails
     module Components
-      class BaseComponent < Protos::Component
+      class Component < Protos::Component
         param :field
 
         def dom
