@@ -39,7 +39,12 @@ module Protoform
     # end
     # ```
     def namespace(key, &block)
-      create_child(key, self.class, object: object_for(key:), &block)
+      create_child(
+        key:,
+        child_class: self.class,
+        object: object_for(key:),
+        &block
+      )
     end
 
     # Maps the `Object#proprety` and `Object#property=` to a field in a web form
@@ -53,7 +58,11 @@ module Protoform
     # end
     # ```
     def field(key)
-      create_child(key, @field_class, object:).tap do |field|
+      create_child(
+        key:,
+        child_class: @field_class,
+        object:
+      ).tap do |field|
         yield field if block_given?
       end
     end
@@ -75,7 +84,11 @@ module Protoform
     # The object within the block is a `Namespace` object that maps each object
     # within the enumerable to another `Namespace` or `Field`.
     def collection(key, &block)
-      create_child(key, NamespaceCollection, &block)
+      create_child(
+        key:,
+        child_class: NamespaceCollection,
+        &block
+      )
     end
 
     # Creates a Hash of Hashes and Arrays that represent the fields and
@@ -97,10 +110,11 @@ module Protoform
 
     # Assigns a hash to the current namespace and children namespace.
     def assign(hash)
-      each do |child|
-        child.assign hash[child.key]
+      tap do
+        each do |child|
+          child.assign hash[child.key]
+        end
       end
-      self
     end
 
     # Creates a root Namespace, which is essentially a form.
@@ -125,7 +139,7 @@ module Protoform
 
     # Checks if the child exists. If it does then it returns that. If it
     # doesn't, it will build the child.
-    def create_child(key, child_class, **kwargs, &block)
+    def create_child(key:, child_class:, **kwargs, &block)
       @children.fetch(key) do
         @children[key] = child_class.new(
           key,
