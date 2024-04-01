@@ -40,7 +40,7 @@ module Protoform
         @namespace.serialize(...)
       end
 
-      def around_template(&)
+      def around_template(&block)
         form_tag do
           authenticity_token_field
           _method_field
@@ -48,8 +48,8 @@ module Protoform
         end
       end
 
-      def form_tag(&)
-        form action: form_action, method: form_method, **attrs, &
+      def form_tag(&block)
+        form action: form_action, method: form_method, **attrs, &block
       end
 
       def template(&block)
@@ -57,10 +57,12 @@ module Protoform
       end
 
       def submit(value = submit_value, **attributes)
-        input **attributes.merge(
-          name: "commit",
-          type: "submit",
-          value: value
+        input(
+          **attributes.merge(
+            name: "commit",
+            type: "submit",
+            value:
+          )
         )
       end
 

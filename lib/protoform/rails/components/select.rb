@@ -5,7 +5,7 @@ module Protoform
         option :collection, default: -> { [] }
 
         def template(&options)
-          if block_given?
+          if options
             select(**attributes, &options)
           else
             select(**attributes) { options(*@collection) }
@@ -18,16 +18,16 @@ module Protoform
           end
         end
 
-        def blank_option(&)
-          option(selected: field.value.nil?, &)
+        def blank_option(&block)
+          option(selected: field.value.nil?, &block)
         end
 
-        def true_option(&)
-          option(selected: field.value == true, value: true.to_s, &)
+        def true_option(&block)
+          option(selected: field.value == true, value: true.to_s, &block)
         end
 
-        def false_option(&)
-          option(selected: field.value == false, value: false.to_s, &)
+        def false_option(&block)
+          option(selected: field.value == false, value: false.to_s, &block)
         end
 
         protected

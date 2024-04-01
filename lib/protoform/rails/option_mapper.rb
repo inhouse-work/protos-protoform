@@ -13,12 +13,12 @@ module Protoform
       def each(&options)
         @collection.each do |object|
           case object
-            in ActiveRecord::Relation => relation
-              active_record_relation_options_enumerable(relation).each(&options)
-            in id, value
-              options.call id, value
-            in value
-              options.call value, value.to_s
+          in ActiveRecord::Relation => relation
+            active_record_relation_options_enumerable(relation).each(&options)
+          in id, value
+            yield id, value
+          in value
+            yield value, value.to_s
           end
         end
       end
@@ -29,7 +29,7 @@ module Protoform
             attributes = object.attributes
             id = attributes.delete(relation.primary_key)
             value = attributes.values.join(" ")
-            collection << [ id, value ]
+            collection << [id, value]
           end
         end
       end

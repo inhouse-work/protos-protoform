@@ -28,7 +28,10 @@ module Protoform
     # like `{user: {addresses: [{street: "Sesame Street"}]}}`.
     def name
       root, *names = keys
-      names.map { |name| "[#{name}]" }.unshift(root).join
+      names
+        .map { |name| "[#{name}]" }
+        .unshift(root)
+        .join
     end
 
     # Emit the id, name, and value in an HTML tag-ish that doesnt have an

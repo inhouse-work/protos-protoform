@@ -2,16 +2,16 @@ module Protoform
   class FieldCollection
     include Enumerable
 
-    def initialize(field:, &)
+    def initialize(field:, &block)
       @field = field
       @index = 0
-      each(&) if block_given?
+      each(&block) if block
     end
 
-    def each(&)
+    def each
       Enumerator.new do |collection|
         values.each do |value|
-          collection.yield build_field(value: value)
+          collection.yield build_field(value:)
         end
       end
     end
@@ -26,8 +26,9 @@ module Protoform
 
     private
 
-    def build_field(**)
-      @field.class.new(@index += 1, parent: @field, **)
+    def build_field(**kwargs)
+      current_index = @index += 1
+      @field.class.new(current_index, parent: @field, **kwargs)
     end
   end
 end

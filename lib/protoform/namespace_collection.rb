@@ -3,7 +3,7 @@ module Protoform
     include Enumerable
 
     def initialize(key, parent:, &template)
-      super(key, parent: parent)
+      super(key, parent:)
       @template = template
       @namespaces = enumerate(parent_collection)
     end
@@ -20,8 +20,8 @@ module Protoform
       end
     end
 
-    def each(&)
-      @namespaces.each(&)
+    def each(&block)
+      @namespaces.each(&block)
     end
 
     private
@@ -29,13 +29,13 @@ module Protoform
     def enumerate(enumerator)
       Enumerator.new do |y|
         enumerator.each.with_index do |object, key|
-          y << build_namespace(key, object: object)
+          y << build_namespace(key, object:)
         end
       end
     end
 
-    def build_namespace(index, **)
-      parent.class.new(index, parent: self, **, &@template)
+    def build_namespace(index, **kwargs)
+      parent.class.new(index, parent: self, **kwargs, &@template)
     end
 
     def parent_collection
@@ -48,7 +48,7 @@ module Protoform
       raise(
         ArgumentError,
         "Parent of a #{self.class} must respond to :object, " \
-          "#{@parent.class} does not"
+        "#{@parent.class} does not"
       )
     end
   end

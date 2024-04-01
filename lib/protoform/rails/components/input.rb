@@ -2,7 +2,7 @@ module Protoform
   module Rails
     module Components
       class Input < FieldComponent
-        def template(&)
+        def template(&block)
           input(**attrs)
         end
 
@@ -13,7 +13,7 @@ module Protoform
             id: dom.id,
             name: dom.name,
             value: dom.value,
-            type: type
+            type:
           }
         end
 

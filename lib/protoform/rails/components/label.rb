@@ -3,7 +3,7 @@ module Protoform
     module Components
       class Label < BaseComponent
         def template(&content)
-          content ||= Proc.new { field.key.to_s.titleize }
+          content ||= proc { field.key.to_s.titleize }
           label(**attrs, &content)
         end
 

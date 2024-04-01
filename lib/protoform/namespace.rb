@@ -14,10 +14,10 @@ module Protoform
     attr_reader :object
 
     def initialize(key, parent:, object: nil, field_class: Field)
-      super(key, parent: parent)
+      super(key, parent:)
       @object = object
       @field_class = field_class
-      @children = Hash.new
+      @children = {}
       yield self if block_given?
     end
 
@@ -37,7 +37,7 @@ module Protoform
     # end
     # ```
     def namespace(key, &block)
-      create_child(key, self.class, object: object_for(key: key), &block)
+      create_child(key, self.class, object: object_for(key:), &block)
     end
 
     # Maps the `Object#proprety` and `Object#property=` to a field in a web form
@@ -51,7 +51,7 @@ module Protoform
     # end
     # ```
     def field(key)
-      create_child(key, @field_class, object: object).tap do |field|
+      create_child(key, @field_class, object:).tap do |field|
         yield field if block_given?
       end
     end
@@ -72,8 +72,8 @@ module Protoform
     # ```
     # The object within the block is a `Namespace` object that maps each object
     # within the enumerable to another `Namespace` or `Field`.
-    def collection(key, &)
-      create_child(key, NamespaceCollection, &)
+    def collection(key, &block)
+      create_child(key, NamespaceCollection, &block)
     end
 
     # Creates a Hash of Hashes and Arrays that represent the fields and
@@ -82,15 +82,15 @@ module Protoform
     # to make sure that all the fields displayed in the form are ones that
     # you're OK updating from the generated hash.
     def serialize
-      each_with_object Hash.new do |child, hash|
+      each_with_object({}) do |child, hash|
         hash[child.key] = child.serialize
       end
     end
 
     # Iterates through the children of the current namespace, which could be
     # `Namespace` or `Field` objects.
-    def each(&)
-      @children.values.each(&)
+    def each(&block)
+      @children.values.each(&block)
     end
 
     # Assigns a hash to the current namespace and children namespace.
@@ -102,8 +102,8 @@ module Protoform
     end
 
     # Creates a root Namespace, which is essentially a form.
-    def self.root(*, **, &)
-      new(*, parent: nil, **, &)
+    def self.root(*args, **kwargs, &block)
+      new(*args, parent: nil, **kwargs, &block)
     end
 
     protected

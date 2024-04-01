@@ -3,7 +3,7 @@ module Protoform
     module Components
       class Button < FieldComponent
         def template(&content)
-          content ||= Proc.new { button_text }
+          content ||= proc { button_text }
           button(**attrs, &content)
         end
 
