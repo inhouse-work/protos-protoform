@@ -69,47 +69,48 @@ module Protoform
       end
 
       protected
-        def authenticity_token_field
-          input(
-            name: "authenticity_token",
-            type: "hidden",
-            value: helpers.form_authenticity_token
-          )
-        end
 
-        def _method_field
-          input(
-            name: "_method",
-            type: "hidden",
-            value: _method_field_value
-          )
-        end
+      def authenticity_token_field
+        input(
+          name: "authenticity_token",
+          type: "hidden",
+          value: helpers.form_authenticity_token
+        )
+      end
 
-        def _method_field_value
-          @method || @model.persisted? ? "patch" : "post"
-        end
+      def _method_field
+        input(
+          name: "_method",
+          type: "hidden",
+          value: _method_field_value
+        )
+      end
 
-        def submit_value
-          "#{resource_action.to_s.capitalize} #{@model.model_name}"
-        end
+      def _method_field_value
+        @method || @model.persisted? ? "patch" : "post"
+      end
 
-        def resource_action
-          @model.persisted? ? :update : :create
-        end
+      def submit_value
+        "#{resource_action.to_s.capitalize} #{@model.model_name}"
+      end
 
-        def form_action
-          @action ||= helpers.url_for(action: resource_action)
-        end
+      def resource_action
+        @model.persisted? ? :update : :create
+      end
 
-        def form_method
-          @method.to_s.downcase == "get" ? "get" : "post"
-        end
+      def form_action
+        @action ||= helpers.url_for(action: resource_action)
+      end
 
-        private
+      def form_method
+        @method.to_s.downcase == "get" ? "get" : "post"
+      end
 
-        def helpers
-          @helpers ||= super
-        end
+      private
+
+      def helpers
+        @helpers ||= super
+      end
     end
   end
 end
