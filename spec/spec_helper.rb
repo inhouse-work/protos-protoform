@@ -2,6 +2,8 @@
 
 require "protoform"
 require "debug"
+require "phlex/testing/capybara"
+# require "phlex-rails"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -13,4 +15,7 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  config.include Phlex::Testing::Capybara::ViewHelper, type: :view
+  # config.include Phlex::Testing::Rails::ViewHelper, type: :view
 end

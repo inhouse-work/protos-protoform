@@ -2,6 +2,12 @@
 
 A fork of [Superform](https://github.com/rubymonolith/superform).
 
+```ruby
+Protoform.configure do |config|
+  config.component = ApplicationComponent
+end
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run

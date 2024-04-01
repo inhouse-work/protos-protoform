@@ -1,34 +1,18 @@
 module Protoform
   module Rails
     module Components
-      class BaseComponent < Component
-        attr_reader :field, :dom
+      class BaseComponent < Protos::Component
+        option :field
 
-        delegate :dom, to: :field
-
-        def initialize(field, attributes: {})
-          @field = field
-          @attributes = attributes
-        end
-
-        def field_attributes
-          {}
-        end
-
-        def focus(value = true)
-          @attributes[:autofocus] = value
-          self
-        end
-
-        private
-
-        def attributes
-          field_attributes.merge(@attributes)
+        def dom
+          field.dom
         end
       end
 
       class FieldComponent < BaseComponent
-        def field_attributes
+        private
+
+        def default_attributes
           { id: dom.id, name: dom.name }
         end
       end
@@ -36,10 +20,12 @@ module Protoform
       class LabelComponent < BaseComponent
         def template(&content)
           content ||= Proc.new { field.key.to_s.titleize }
-          label(**attributes, &content)
+          label(**attrs, &content)
         end
 
-        def field_attributes
+        private
+
+        def default_attributes
           { for: dom.id }
         end
       end
@@ -47,14 +33,16 @@ module Protoform
       class ButtonComponent < FieldComponent
         def template(&content)
           content ||= Proc.new { button_text }
-          button(**attributes, &content)
+          button(**attrs, &content)
         end
+
+        private
 
         def button_text
-          @attributes.fetch(:value, dom.value).titleize
+          attrs.fetch(:value, dom.value).titleize
         end
 
-        def field_attributes
+        def default_attributes
           { id: dom.id, name: dom.name, value: dom.value }
         end
       end
@@ -66,20 +54,24 @@ module Protoform
           input(name: dom.name, type: :hidden, value: "0")
           # The hard coded keys need to be in here so the user can't overrite
           # them.
-          input(type: :checkbox, value: "1", **attributes)
+          input(type: :checkbox, value: "1", **attrs)
         end
 
-        def field_attributes
+        private
+
+        def default_attributes
           { id: dom.id, name: dom.name, checked: field.value }
         end
       end
 
       class InputComponent < FieldComponent
         def template(&)
-          input(**attributes)
+          input(**attrs)
         end
 
-        def field_attributes
+        prviate
+
+        def default_attributes
           { id: dom.id, name: dom.name, value: dom.value, type: type }
         end
 
@@ -102,7 +94,7 @@ module Protoform
       class TextareaComponent < FieldComponent
         def template(&content)
           content ||= Proc.new { dom.value }
-          textarea(**attributes, &content)
+          textarea(**attrs, &content)
         end
       end
 

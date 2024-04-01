@@ -11,28 +11,33 @@ module Protoform
     # The `Form` component also handles Rails authenticity tokens via the
     # `authenticity_toklen_field` method and the HTTP verb via the
     # `_method_field`.
-    class Form < Component
-      attr_reader :model
+    class Form < Protos::Component
+      param :model, reader: false
+      option :helpers, reader: false, default: -> {}
+      option :action, reader: false, default: -> {}
+      option :method, reader: false, default: -> {}
+      option :namespace, reader: false, default: -> do
+        Namespace.root(key, object: @model, field_class: self.class::Field)
+      end
 
-      delegate \
-          :field,
-          :collection,
-          :namespace,
-          :assign,
-          :serialize,
-        to: :@namespace
+      def field(...)
+        @namespace.field(...)
+      end
 
+      def collection(...)
+        @namespace.collection(...)
+      end
 
-      def initialize(model, action: nil, method: nil, **attributes)
-        @model = model
-        @action = action
-        @method = method
-        @attributes = attributes
-        @namespace = Namespace.root(
-          key,
-          object: model,
-          field_class: self.class::Field
-        )
+      def namespace(...)
+        @namespace.namespace(...)
+      end
+
+      def assign(...)
+        @namespace.assign(...)
+      end
+
+      def serialize(...)
+        @namespace.serialize(...)
       end
 
       def around_template(&)
@@ -44,7 +49,7 @@ module Protoform
       end
 
       def form_tag(&)
-        form action: form_action, method: form_method, **@attributes, &
+        form action: form_action, method: form_method, **attrs, &
       end
 
       def template(&block)
@@ -98,6 +103,12 @@ module Protoform
 
         def form_method
           @method.to_s.downcase == "get" ? "get" : "post"
+        end
+
+        private
+
+        def helpers
+          @helpers ||= super
         end
     end
   end
