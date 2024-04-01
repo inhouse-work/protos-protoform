@@ -42,6 +42,7 @@ module Protoform
       create_child(
         key:,
         child_class: self.class,
+        field_class: @field_class,
         object: object_for(key:),
         &block
       )

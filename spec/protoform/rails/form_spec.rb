@@ -4,6 +4,10 @@ class TestForm < Protoform::Rails::Form
   def template
     render field(:name).input(type: :text)
     render field(:email).input(type: :email)
+
+    namespace(:contact) do |contact|
+      render contact.field(:phone).input(type: :tel)
+    end
   end
 end
 
@@ -37,5 +41,6 @@ RSpec.describe Protoform::Rails::Form, type: :view do
   it "renders the form fields" do
     expect(page).to have_field(type: "text", name: "something[name]")
     expect(page).to have_field(type: "email", name: "something[email]")
+    expect(page).to have_field(type: "tel", name: "something[contact][phone]")
   end
 end
