@@ -2,7 +2,7 @@ module Protoform
   module Rails
     module Components
       class BaseComponent < Protos::Component
-        option :field
+        param :field
 
         def dom
           field.dom
@@ -69,7 +69,7 @@ module Protoform
           input(**attrs)
         end
 
-        prviate
+        private
 
         def default_attributes
           { id: dom.id, name: dom.name, value: dom.value, type: type }
@@ -99,10 +99,7 @@ module Protoform
       end
 
       class SelectField < FieldComponent
-        def initialize(*, collection: [], **, &)
-          super(*, **, &)
-          @collection = collection
-        end
+        option :collection, default: -> { [] }
 
         def template(&options)
           if block_given?

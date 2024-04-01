@@ -20,14 +20,14 @@ RSpec.describe Protoform::Field do
   describe "#value" do
     it "returns the value of the object" do
       object = double("object", foo: :bar)
-      field = described_class.new(:foo, parent: nil, object: object)
+      field = described_class.new(:foo, parent: nil, object:)
 
       expect(field.value).to eq(:bar)
     end
 
     it "returns the value if the object does not respond to" do
       object = double("object")
-      field = described_class.new(:foo, parent: nil, object: object, value: :bar)
+      field = described_class.new(:foo, parent: nil, object:, value: :bar)
 
       expect(field.value).to eq(:bar)
     end
