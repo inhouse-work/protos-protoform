@@ -2,6 +2,7 @@
 
 module Protoform
   module Rails
+    Component = ::ApplicationComponent
     # A Protos::Component class that accepts a model and sets
     # a `Protoform::Namespace` with the `Object#model_name` as the key and maps
     # the object to form fields and namespaces.
@@ -13,7 +14,7 @@ module Protoform
     # The `Form` component also handles Rails authenticity tokens via the
     # `authenticity_toklen_field` method and the HTTP verb via the
     # `_method_field`.
-    class Form < Protos::Component
+    class Form < Component
       param :model, reader: false
       option :helpers, reader: false, default: -> {}
       option :action, reader: false, default: -> {}
@@ -91,7 +92,7 @@ module Protoform
       end
 
       def _method_field_value
-        @method || @model.persisted? ? "patch" : "post"
+        @method || (@model.persisted? ? "patch" : "post")
       end
 
       def submit_value

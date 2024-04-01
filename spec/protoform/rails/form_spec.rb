@@ -2,6 +2,8 @@
 
 require "active_model"
 
+ApplicationComponent = Class.new(Protos::Component)
+
 class TestForm < Protoform::Rails::Form
   def template
     render field(:name).input(type: :text)
@@ -26,6 +28,10 @@ RSpec.describe Protoform::Rails::Form, type: :view do
 
         def self.name
           "Something"
+        end
+
+        def persisted?
+          false
         end
 
         attribute :name

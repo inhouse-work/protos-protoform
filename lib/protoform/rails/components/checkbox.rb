@@ -3,7 +3,7 @@
 module Protoform
   module Rails
     module Components
-      class CheckboxComponent < FieldComponent
+      class Checkbox < FieldComponent
         def template
           # Rails has a hidden and checkbox input to deal with sending back
           # a value to the server regardless of if the input is checked or not.
