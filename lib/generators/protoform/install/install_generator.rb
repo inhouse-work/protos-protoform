@@ -1,33 +1,39 @@
+# frozen_string_literal: true
+
 require "bundler"
 
-class Protoform::InstallGenerator < Rails::Generators::Base
-  source_root File.expand_path("templates", __dir__)
+module Protoform
+  class InstallGenerator < Rails::Generators::Base
+    source_root File.expand_path("templates", __dir__)
 
-  APPLICATION_CONFIGURATION_PATH = Rails.root.join("config/application.rb")
+    APPLICATION_CONFIGURATION_PATH = Rails.root.join("config/application.rb")
 
-  def install_phlex_rails
-    return if gem_in_bundle? "phlex-rails"
+    def install_phlex_rails
+      return if gem_in_bundle? "phlex-rails"
 
-    gem "phlex-rails"
-    generate "phlex:install"
-  end
+      gem "phlex-rails"
+      generate "phlex:install"
+    end
 
-  def autoload_components
-    return unless APPLICATION_CONFIGURATION_PATH.exist?
+    def autoload_components
+      return unless APPLICATION_CONFIGURATION_PATH.exist?
 
-    inject_into_class(
-      APPLICATION_CONFIGURATION_PATH,
-      "Application",
-      %(    config.autoload_paths << "\#{root}/app/views/forms"\n)
-    )
-  end
+      inject_into_class(
+        APPLICATION_CONFIGURATION_PATH,
+        "Application",
+        %(    config.autoload_paths << "\#{root}/app/views/forms"\n)
+      )
+    end
 
-  def create_application_form
-    template "application_form.rb", Rails.root.join("app/views/forms/application_form.rb")
-  end
+    def create_application_form
+      template "application_form.rb",
+               Rails.root.join("app/views/forms/application_form.rb")
+    end
 
-  private
+    private
+
     def gem_in_bundle?(gem_name)
       Bundler.load.specs.any? { |spec| spec.name == gem_name }
     end
+  end
 end

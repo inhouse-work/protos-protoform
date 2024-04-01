@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Protoform::Field do
   describe "#assign" do
     it "assigns value to the object" do

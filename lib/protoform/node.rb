@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Protoform
   # Superclass for Namespace and Field classes. Not much to it other than it has
   # a `name` and `parent` node attribute. Think of it as a tree.

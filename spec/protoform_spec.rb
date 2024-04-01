@@ -2,11 +2,13 @@
 
 require "ostruct"
 
-Model = Struct.new(:name, :nicknames, :addresses)
-Address = Struct.new(:street, :city, :state)
-Name = Struct.new(:first, :last) # rubocop:disable Lint/StructNewOverride
-
 RSpec.describe Protoform do
+  before do
+    stub_const "Model", Struct.new(:name, :nicknames, :addresses)
+    stub_const "Address", Struct.new(:street, :city, :state)
+    stub_const "Name", Struct.new(:first, :last) # rubocop:disable Lint/StructNewOverride
+  end
+
   let(:user) do
     Model.new(
       name: Name.new(first: "William", last: "Bills"),
@@ -37,9 +39,7 @@ RSpec.describe Protoform do
         name.field(:first)
         name.field(:last)
       end
-      form.field(:nicknames).collection do |field|
-        field.value
-      end
+      form.field(:nicknames).collection(&:value)
       form.collection(:addresses) do |address|
         address.field(:street)
         address.field(:city)

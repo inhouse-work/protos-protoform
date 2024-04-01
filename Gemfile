@@ -6,7 +6,7 @@ source "https://rubygems.org"
 gemspec
 
 gem "debug"
+gem "phlex-testing-capybara"
 gem "rake"
 gem "rspec"
 gem "rubocop-inhouse"
-gem "phlex-testing-capybara"

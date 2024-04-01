@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Protoform::Namespace do
   describe "#namespace" do
     it "yields a child namespace" do
@@ -28,7 +30,7 @@ RSpec.describe Protoform::Namespace do
       )
 
       parent.collection(:bar) do |child|
-        expect(child).to be_a(Protoform::Namespace)
+        expect(child).to be_a(described_class)
         expect(child.key).to eq(0)
       end
     end

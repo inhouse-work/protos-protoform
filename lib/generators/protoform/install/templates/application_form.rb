@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationForm < Protoform::Rails::Form
   include Phlex::Rails::Helpers::Pluralize
 
@@ -8,7 +10,7 @@ class ApplicationForm < Protoform::Rails::Form
     end
   end
 
-  def around_template(&)
+  def around_template(&block)
     super do
       error_messages
       yield
@@ -17,13 +19,16 @@ class ApplicationForm < Protoform::Rails::Form
   end
 
   def error_messages
-    if model.errors.any?
-      div(style: "color: red;") do
-        h2 { "#{pluralize model.errors.count, "error"} prohibited this post from being saved:" }
-        ul do
-          model.errors.each do |error|
-            li { error.full_message }
-          end
+    return if model.errors.none?
+
+    div(style: "color: red;") do
+      h2 do
+        "#{pluralize model.errors.count,
+                     "error"} prohibited this post from being saved:"
+      end
+      ul do
+        model.errors.each do |error|
+          li { error.full_message }
         end
       end
     end

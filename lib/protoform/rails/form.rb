@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Protoform
   module Rails
     # A Phlex::HTML view module that accepts a model and sets
@@ -101,7 +103,7 @@ module Protoform
       end
 
       def form_action
-        @action ||= helpers.url_for(action: resource_action)
+        @form_action ||= helpers.url_for(action: resource_action)
       end
 
       def form_method

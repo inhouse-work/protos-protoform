@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module Protoform
   module Rails
     module Components
       class Input < FieldComponent
-        def template(&block)
+        def template
           input(**attrs)
         end
 

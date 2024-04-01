@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Protoform::FieldCollection do
   describe "#each" do
     it "yields each field" do

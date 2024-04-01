@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Protoform
   class Field < Node
     attr_reader :dom

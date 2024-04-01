@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Protoform
   # A Namespace maps and object to values, but doesn't actually have a value
   # itself. For example, a `User` object or ActiveRecord model could be passed

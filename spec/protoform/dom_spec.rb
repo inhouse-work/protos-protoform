@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Protoform::DOM do
   def build_lineage(**lineage)
     lineage.reduce(nil) do |parent, (key, klass)|

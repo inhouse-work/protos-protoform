@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Protoform
   # Generates DOM IDs, names, etc. for a Field, Namespace, or Node based on
   # norms that were established by Rails. These can be used outsidef or Rails in

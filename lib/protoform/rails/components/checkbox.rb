@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module Protoform
   module Rails
     module Components
       class CheckboxComponent < FieldComponent
-        def template(&block)
+        def template
           # Rails has a hidden and checkbox input to deal with sending back
           # a value to the server regardless of if the input is checked or not.
           input(name: dom.name, type: :hidden, value: "0")
