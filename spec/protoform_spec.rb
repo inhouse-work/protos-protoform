@@ -63,19 +63,47 @@ RSpec.describe Protoform do
     )
   end
 
-  it "assigns params to form and discards garbage" do
-    form.assign(params)
-    expect(form.serialize).to eql(
-      {
-        name: { first: "Brad", last: "Gessler" },
-        nicknames: %w[Brad Bradley],
+  context "with existing params" do
+    it "assigns params to form and discards garbage" do
+      form.assign(params)
+      expect(form.serialize).to eql(
+        {
+          name: { first: "Brad", last: "Gessler" },
+          nicknames: %w[Brad Bradley],
+          addresses: [
+            { street: "Main St", city: "Salem", state: nil },
+            { street: "Wall St", city: "New York", state: "New York" }
+          ],
+          one: { two: { three: { four: 100 } } }
+        }
+      )
+    end
+  end
+
+  context "with new object" do
+    let(:user) do
+      Model.new(
         addresses: [
-          { street: "Main St", city: "Salem", state: nil },
-          { street: "Wall St", city: "New York", state: "New York" }
-        ],
-        one: { two: { three: { four: 100 } } }
-      }
-    )
+          Address.new(street: nil, city: nil, state: nil),
+          Address.new(street: nil, city: nil, state: nil)
+        ]
+      )
+    end
+
+    it "assigns params to form and discards garbage" do
+      form.assign(params)
+      expect(form.serialize).to eql(
+        {
+          name: { first: "Brad", last: "Gessler" },
+          nicknames: %w[Brad Bradley],
+          addresses: [
+            { street: "Main St", city: "Salem", state: nil },
+            { street: "Wall St", city: "New York", state: "New York" }
+          ],
+          one: { two: { three: { four: 100 } } }
+        }
+      )
+    end
   end
 
   it "has correct DOM names" do

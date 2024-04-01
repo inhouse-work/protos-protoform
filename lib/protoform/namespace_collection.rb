@@ -42,8 +42,21 @@ module Protoform
 
     def parent_collection
       raise_missing_object unless @parent.respond_to? :object
+      @parent.object.send(@key).tap do |value|
+        raise_invalid_enumerator(value) unless value.respond_to? :each
+      end
+    end
 
-      @parent.object.send @key
+    def raise_invalid_enumerator(value)
+      raise(
+        ArgumentError,
+        <<~ERROR
+          #{@parent.object.class} did not return something that responds to
+          :each for #{@key}. #{self.class} requires the model to return
+          something that can be enumerated for #{@key}.
+          Got #{value.class}: #{value.inspect} instead.
+        ERROR
+      )
     end
 
     def raise_missing_object
