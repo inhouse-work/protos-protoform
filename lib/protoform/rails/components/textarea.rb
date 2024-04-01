@@ -3,7 +3,7 @@
 module Protoform
   module Rails
     module Components
-      class TextareaComponent < FieldComponent
+      class Textarea < FieldComponent
         def template(&content)
           content ||= proc { dom.value }
           textarea(**attrs, &content)

@@ -3,14 +3,18 @@
 module Protoform
   module Rails
     module Components
-      class SelectField < FieldComponent
+      class Select < FieldComponent
         option :collection, default: -> { [] }
+        option :include_blank, default: -> { true }
 
         def template(&options)
           if options
-            select(**attributes, &options)
+            select(**attrs, &options)
           else
-            select(**attributes) { options(*@collection) }
+            select(**attrs) do
+              blank_option
+              options(*@collection)
+            end
           end
         end
 
