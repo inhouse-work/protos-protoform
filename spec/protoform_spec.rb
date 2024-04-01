@@ -1,27 +1,33 @@
 # frozen_string_literal: true
+
 require "ostruct"
+
+Model = Struct.new(:name, :nicknames, :addresses)
+Address = Struct.new(:street, :city, :state)
+Name = Struct.new(:first, :last) # rubocop:disable Lint/StructNewOverride
 
 RSpec.describe Protoform do
   let(:user) do
-    OpenStruct.new \
-      name: OpenStruct.new(first: "William", last: "Bills"),
-      nicknames: ["Bill", "Billy", "Will"],
+    Model.new(
+      name: Name.new(first: "William", last: "Bills"),
+      nicknames: %w[Bill Billy Will],
       addresses: [
-        OpenStruct.new(street: "Birch Ave", city: "Williamsburg", state: "New Mexico"),
-        OpenStruct.new(street: "Main St", city: "Salem", state: "Indiana"),
+        Address.new(street: "Birch Ave", city: "Williamsburg", state: "New Mexico"),
+        Address.new(street: "Main St", city: "Salem", state: "Indiana")
       ]
+    )
   end
 
   let(:params) do
     {
       name: { first: "Brad", last: "Gessler", admin: true },
       admin: true,
-      nicknames: ["Brad", "Bradley"],
+      nicknames: %w[Brad Bradley],
       addresses: [
-        { street: "Main St", city: "Salem"},
-        { street: "Wall St", city: "New York", state: "New York", admin: true },
+        { street: "Main St", city: "Salem" },
+        { street: "Wall St", city: "New York", state: "New York", admin: true }
       ],
-      one: { two: { three: { four: 100 }}}
+      one: { two: { three: { four: 100 } } }
     }
   end
 
@@ -44,28 +50,32 @@ RSpec.describe Protoform do
   end
 
   it "serializes form" do
-    expect(form.serialize).to eql({
-      name: { first: "William", last: "Bills" },
-      nicknames: ["Bill", "Billy", "Will"],
-      addresses: [
-        {street: "Birch Ave", city: "Williamsburg", state: "New Mexico"},
-        {street: "Main St", city: "Salem", state: "Indiana"},
-      ],
-      one: {two: {three: {four: 100}}}
-    })
+    expect(form.serialize).to eql(
+      {
+        name: { first: "William", last: "Bills" },
+        nicknames: %w[Bill Billy Will],
+        addresses: [
+          { street: "Birch Ave", city: "Williamsburg", state: "New Mexico" },
+          { street: "Main St", city: "Salem", state: "Indiana" }
+        ],
+        one: { two: { three: { four: 100 } } }
+      }
+    )
   end
 
   it "assigns params to form and discards garbage" do
     form.assign(params)
-    expect(form.serialize).to eql({
-      name: { first: "Brad", last: "Gessler" },
-      nicknames: ["Brad", "Bradley"],
-      addresses: [
-        {street: "Main St", city: "Salem", state: nil},
-        {street: "Wall St", city: "New York", state: "New York"}
-      ],
-      one: {two: {three: {four: 100}}}
-    })
+    expect(form.serialize).to eql(
+      {
+        name: { first: "Brad", last: "Gessler" },
+        nicknames: %w[Brad Bradley],
+        addresses: [
+          { street: "Main St", city: "Salem", state: nil },
+          { street: "Wall St", city: "New York", state: "New York" }
+        ],
+        one: { two: { three: { four: 100 } } }
+      }
+    )
   end
 
   it "has correct DOM names" do
@@ -78,13 +88,13 @@ RSpec.describe Protoform do
       end
       form.field(:nicknames).collection do |field|
         field.dom.tap do |dom|
-          expect(dom.id).to match /user_nicknames_\d+/
+          expect(dom.id).to match(/user_nicknames_\d+/)
           expect(dom.name).to eql("user[nicknames][]")
         end
       end
       form.collection(:addresses) do |address|
         address.field(:street).dom.tap do |dom|
-          expect(dom.id).to match /user_addresses_\d_street+/
+          expect(dom.id).to match(/user_addresses_\d_street+/)
           expect(dom.name).to eql("user[addresses][][street]")
         end
         address.field(:city)

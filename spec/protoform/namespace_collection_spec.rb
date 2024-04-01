@@ -1,10 +1,13 @@
+Model = Struct.new(:bars)
+Child = Struct.new(:baz)
+
 RSpec.describe Protoform::NamespaceCollection do
   describe "#assign" do
     it "assigns the value to each namespace" do
-      object = OpenStruct.new(
+      object = Model.new(
         bars: [
-          OpenStruct.new(baz: "A"),
-          OpenStruct.new(baz: "B")
+          Child.new(baz: "A"),
+          Child.new(baz: "B")
         ]
       )
 
@@ -13,8 +16,8 @@ RSpec.describe Protoform::NamespaceCollection do
         collection.field(:baz)
       end
 
-      collection.assign([{ baz: "C" },{ baz: "D" }])
-      expect(collection.serialize).to eq([{ baz: "C" },{ baz: "D" }])
+      collection.assign([{ baz: "C" }, { baz: "D" }])
+      expect(collection.serialize).to eq([{ baz: "C" }, { baz: "D" }])
     end
   end
 end

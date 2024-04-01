@@ -1,7 +1,7 @@
 RSpec.describe Protoform::Field do
   describe "#assign" do
     it "assigns value to the object" do
-      object = double("object", "foo=" => nil)
+      object = double("object", "foo=": nil)
       field = described_class.new(:foo, parent: nil, object:)
 
       expect(object).to receive(:foo=).with(:bar)

@@ -1,11 +1,10 @@
 RSpec.describe Protoform::DOM do
   def build_lineage(**lineage)
     lineage.reduce(nil) do |parent, (key, klass)|
-      case
-      when klass.is_a?(Class) && klass.to_s == "Protoform::FieldCollection"
+      if klass.is_a?(Class) && klass.to_s == "Protoform::FieldCollection"
         klass.new(field: parent).field
-      when klass.is_a?(Class)
-        klass.new(key, parent: parent)
+      elsif klass.is_a?(Class)
+        klass.new(key, parent:)
       else
         klass
       end

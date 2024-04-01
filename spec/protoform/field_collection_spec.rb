@@ -14,7 +14,7 @@ RSpec.describe Protoform::FieldCollection do
 
     it "yields each field when given a block during initialization" do
       parent = Protoform::Field.new(:foo, parent: nil, object: nil, value: ["A"])
-      collection = described_class.new(field: parent) do |field|
+      described_class.new(field: parent) do |field|
         expect(field.key).to eq(1)
         expect(field.dom.id).to eq("foo_1")
         expect(field.dom.name).to eq("foo[]")
