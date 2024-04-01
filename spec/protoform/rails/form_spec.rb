@@ -31,7 +31,7 @@ RSpec.describe Protoform::Rails::Form, type: :view do
         end
 
         def persisted?
-          false
+          true
         end
 
         attribute :name
@@ -62,7 +62,8 @@ RSpec.describe Protoform::Rails::Form, type: :view do
 
     form = TestForm.new(
       model,
-      helpers: double("Helpers", form_authenticity_token: "token", url_for: "/")
+      helpers: double("Helpers", form_authenticity_token: "token", url_for: "/"),
+      method: :post
     )
 
     form.assign(

@@ -52,7 +52,7 @@ module Protoform
       end
 
       def form_tag(&block)
-        form action: form_action, method: form_method, **attrs, &block
+        form action:, method: form_method, **attrs, &block
       end
 
       def template(&block)
@@ -103,8 +103,8 @@ module Protoform
         @model.persisted? ? :update : :create
       end
 
-      def form_action
-        @form_action ||= helpers.url_for(action: resource_action)
+      def action
+        @action ||= helpers.url_for(action: resource_action)
       end
 
       def form_method
