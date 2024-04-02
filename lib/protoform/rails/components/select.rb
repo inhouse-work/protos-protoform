@@ -6,12 +6,23 @@ module Protoform
       class Select < FieldComponent
         option :collection, default: -> { [] }
         option :include_blank, default: -> { true }
+        option :multiple, reader: false, default: -> { false }
 
         def template(&options)
+          name = @multiple ? "#{attrs[:name]}[]" : attrs[:name]
+
+          if @multiple
+            input(
+              name:,
+              type: :hidden,
+              value: ""
+            )
+          end
+
           if options
-            select(**attrs, &options)
+            select(multiple: @multiple, **attrs, name:, &options)
           else
-            select(**attrs) do
+            select(multiple: @multiple, **attrs, name:) do
               blank_option
               options(*@collection)
             end
@@ -20,7 +31,10 @@ module Protoform
 
         def options(*collection)
           map_options(collection).each do |key, value|
-            option(selected: field.value == key, value: key) { value }
+            option(
+              selected: selected_value_for(key) ? "selected" : false,
+              value: key
+            ) { value }
           end
         end
 
@@ -37,6 +51,17 @@ module Protoform
         end
 
         protected
+
+        def selected_value_for(key)
+          case field.value
+          when String, Symbol
+            field.value.to_s == key.to_s
+          when Array
+            field.value.include?(key)
+          else
+            field.value == key
+          end
+        end
 
         def map_options(collection)
           OptionMapper.new(collection)
