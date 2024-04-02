@@ -6,6 +6,31 @@ Uses [protos](https://github.com/inhouse-work/protos) as base components.
 This is a more opinionated version of Superform. My goal is to maintain feature
 parity with and contribute features back to Superform.
 
+This gem is currently unreleased but you can install from the github directly.
+
+## Usage
+
+```
+gem "protos-protoform", github: "nolantait/protos-protoform", branch: "master", require: "protoform"
+```
+
+Once the gem is installed you can run the generators:
+
+```
+bin/rails g protoform:install
+```
+
+This will:
+
+- Add `phlex-rails` to your gemfile if it does not exist
+- Add `layouts`, `components` and other folders to be autoloaded from `app/views`
+- Add an `ApplicationForm` as the base form class to your `app/views`
+
+This gem follows the same conventions as Superform with some key differences:
+
+- Components are expected to inherit from `Protos::Component` so your
+  `ApplicationComponent` should inherit from that
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run
