@@ -4,6 +4,8 @@ module Protoform
   module Rails
     module Components
       class Input < FieldComponent
+        option :type, reader: false, default: -> { inferred_type }
+
         def template
           input(**attrs)
         end
@@ -14,12 +16,13 @@ module Protoform
           {
             id: dom.id,
             name: dom.name,
-            value: dom.value,
-            type:
-          }
+            type: @type
+          }.tap do |hash|
+            hash[:value] = field.value unless @type.to_sym == :file
+          end
         end
 
-        def type
+        def inferred_type
           case field.value
           when URI
             "url"
