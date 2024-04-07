@@ -5,7 +5,7 @@ require "active_model"
 ApplicationComponent = Class.new(Protos::Component)
 
 class TestForm < Protoform::Rails::Form
-  def template
+  def view_template
     render field(:name).input(type: :text)
     render field(:email).input(type: :email)
 

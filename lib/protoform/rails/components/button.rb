@@ -4,7 +4,7 @@ module Protoform
   module Rails
     module Components
       class Button < FieldComponent
-        def template(&content)
+        def view_template(&content)
           content ||= proc { button_text }
           button(**attrs, &content)
         end

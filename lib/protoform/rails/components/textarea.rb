@@ -4,7 +4,7 @@ module Protoform
   module Rails
     module Components
       class Textarea < FieldComponent
-        def template(&content)
+        def view_template(&content)
           content ||= proc { dom.value }
           textarea(**attrs, &content)
         end

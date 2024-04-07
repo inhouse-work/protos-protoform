@@ -55,7 +55,7 @@ module Protoform
         form action:, method: form_method, **attrs, &block
       end
 
-      def template(&block)
+      def view_template(&block)
         yield_content(&block)
       end
 

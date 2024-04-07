@@ -9,7 +9,7 @@ module Protoform
       # ```ruby
       # class MyForm < Protoform::Rails::Form
       #   class MyLabel < Protoform::Rails::Components::LabelComponent
-      #     def template(&content)
+      #     def view_template(&content)
       #       label(form: @field.dom.name, class: "text-bold", &content)
       #     end
       #   end

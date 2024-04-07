@@ -8,7 +8,7 @@ module Protoform
         option :include_blank, default: -> { true }
         option :multiple, reader: false, default: -> { false }
 
-        def template(&options)
+        def view_template(&options)
           name = @multiple ? "#{attrs[:name]}[]" : attrs[:name]
 
           if @multiple

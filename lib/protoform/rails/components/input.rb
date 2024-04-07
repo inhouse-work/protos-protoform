@@ -6,7 +6,7 @@ module Protoform
       class Input < FieldComponent
         option :type, reader: false, default: -> { inferred_type }
 
-        def template
+        def view_template
           input(**attrs)
         end
 
