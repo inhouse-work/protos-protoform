@@ -2,7 +2,7 @@
 
 module Protoform
   class Field < Node
-    attr_reader :dom
+    attr_reader :dom, :object
 
     def initialize(key, parent:, object: nil, value: nil)
       super(key, parent:)
