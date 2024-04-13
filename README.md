@@ -6,12 +6,10 @@ Uses [protos](https://github.com/inhouse-work/protos) as base components.
 This is a more opinionated version of Superform. My goal is to maintain feature
 parity with and contribute features back to Superform.
 
-This gem is currently unreleased but you can install from the github directly.
-
 ## Usage
 
 ```
-gem "protos-protoform", github: "nolantait/protos-protoform", branch: "master", require: "protoform"
+gem "protos-protoform", require: "protoform"
 ```
 
 Once the gem is installed you can run the generators:
