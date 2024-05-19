@@ -16,6 +16,7 @@ module Protoform
     # `_method_field`.
     class Form < Component
       param :model, reader: false
+      option :authenticity_token, reader: false, default: -> { true }
       option :helpers, reader: false, default: -> {}
       option :action, reader: false, default: -> {}
       option :method, reader: false, default: -> {}
@@ -45,14 +46,19 @@ module Protoform
 
       def around_template(&block)
         form_tag do
-          authenticity_token_field
+          authenticity_token_field if @authenticity_token
           _method_field
           super
         end
       end
 
       def form_tag(&block)
-        form action:, method: form_method, **attrs, &block
+        form(
+          action: form_action,
+          method: form_method,
+          **attrs,
+          &block
+        )
       end
 
       def view_template(&block)
@@ -103,12 +109,12 @@ module Protoform
         @model.persisted? ? :update : :create
       end
 
-      def action
-        @action ||= helpers.url_for(action: resource_action)
+      def form_action
+        @form_action ||= helpers.url_for(action: resource_action)
       end
 
       def form_method
-        @method.to_s.downcase == "get" ? "get" : "post"
+        @method.to_sym == :get ? :get : :post
       end
 
       private
