@@ -4,7 +4,7 @@ require "protoform"
 require "debug"
 require "phlex/testing/capybara"
 
-ApplicationComponent = Protos::Component
+ApplicationComponent = Class.new(Protos::Component)
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
