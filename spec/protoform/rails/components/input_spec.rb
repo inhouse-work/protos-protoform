@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RSpec.describe Protoform::Rails::Components::Input, type: :view do
   {
     text: "Some text",
