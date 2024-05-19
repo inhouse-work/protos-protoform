@@ -18,7 +18,10 @@ module Protoform
       option :authenticity_token, reader: false, default: -> { true }
       option :helpers, reader: false, default: -> {}
       option :action, reader: false, default: -> {}
-      option :method, reader: false, default: -> {}
+      option :method,
+             reader: false,
+             type: Protos::Types::Coercible::Symbol,
+             default: -> { :post }
       option :namespace, reader: false, default: -> do
         Namespace.root(key, object: @model, field_class: self.class::Field)
       end
@@ -113,7 +116,7 @@ module Protoform
       end
 
       def form_method
-        @method.to_sym == :get ? :get : :post
+        @method
       end
 
       private
