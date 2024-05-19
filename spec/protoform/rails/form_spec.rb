@@ -65,7 +65,7 @@ RSpec.describe Protoform::Rails::Form, type: :view do
     end
 
     it "renders the form without an authenticity token" do
-      expect(page).to have_css("form")
+      expect(page).to have_css("form[method='post']")
       expect(page).to have_no_field(type: "hidden", name: "authenticity_token")
       expect(page).to have_field(type: "hidden", name: "_method", with: "patch")
     end
@@ -88,7 +88,7 @@ RSpec.describe Protoform::Rails::Form, type: :view do
     end
 
     it "renders the form" do
-      expect(page).to have_css("form")
+      expect(page).to have_css("form[action='/']")
     end
 
     it "renders the rails based form fields" do

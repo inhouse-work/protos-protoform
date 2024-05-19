@@ -52,7 +52,7 @@ module Protoform
           end
 
           _method_field
-          super
+          super(&block)
         end
       end
 
@@ -118,7 +118,7 @@ module Protoform
       end
 
       def form_method
-        @method
+        @method == :get ? :get : :post
       end
 
       private
