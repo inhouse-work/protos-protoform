@@ -2,7 +2,6 @@
 
 module Protoform
   module Rails
-    Component = ::ApplicationComponent
     # A Protos::Component class that accepts a model and sets
     # a `Protoform::Namespace` with the `Object#model_name` as the key and maps
     # the object to form fields and namespaces.

@@ -16,10 +16,20 @@ module Protoform
           {
             id: dom.id,
             name: dom.name,
-            type: @type
-          }.tap do |hash|
-            hash[:value] = field.value unless @type.to_sym == :file
-          end
+            type: @type,
+            value:
+          }
+        end
+
+        def client_provided_value?
+          {
+            file: true,
+            image: true
+          }.fetch(@type.to_sym, false)
+        end
+
+        def value
+          dom.value unless client_provided_value?
         end
 
         def inferred_type
