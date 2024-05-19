@@ -3,7 +3,6 @@
 require "protoform"
 require "debug"
 require "phlex/testing/capybara"
-# require "phlex-rails"
 
 ApplicationComponent = Protos::Component
 
@@ -19,5 +18,4 @@ RSpec.configure do |config|
   end
 
   config.include Phlex::Testing::Capybara::ViewHelper, type: :view
-  # config.include Phlex::Testing::Rails::ViewHelper, type: :view
 end
