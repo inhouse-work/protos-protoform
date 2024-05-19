@@ -3,6 +3,16 @@
 class ApplicationForm < Protoform::Rails::Form
   include Phlex::Rails::Helpers::Pluralize
 
+  # These are the current dry-initializer options for the base class:
+  #
+  # param :model, reader: false
+  # option :helpers, reader: false, default: -> {}
+  # option :action, reader: false, default: -> {}
+  # option :method, reader: false, default: -> {}
+  # option :namespace, reader: false, default: -> do
+  #   Namespace.root(key, object: @model, field_class: self.class::Field)
+  # end
+
   def row(component)
     div do
       render component.field.label(style: "display: block;")
