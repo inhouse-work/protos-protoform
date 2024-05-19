@@ -59,7 +59,7 @@ RSpec.describe Protoform::Rails::Form, type: :view do
     before do
       model = TestModel.new(addresses: [Address.new(street: "123 Main St")])
       helpers = double("Helpers", form_authenticity_token: "token", url_for: "/")
-      form = TestForm.new(model, helpers:, method: :post, authenticity_token: false)
+      form = TestForm.new(model, helpers:, authenticity_token: false)
 
       render form
     end
@@ -67,6 +67,7 @@ RSpec.describe Protoform::Rails::Form, type: :view do
     it "renders the form without an authenticity token" do
       expect(page).to have_css("form")
       expect(page).to have_no_field(type: "hidden", name: "authenticity_token")
+      expect(page).to have_field(type: "hidden", name: "_method", with: "patch")
     end
   end
 

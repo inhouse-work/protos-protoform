@@ -20,8 +20,7 @@ module Protoform
       option :action, reader: false, default: -> {}
       option :method,
              reader: false,
-             type: Protos::Types::Coercible::Symbol,
-             default: -> { :post }
+             default: -> { }
       option :namespace, reader: false, default: -> do
         Namespace.root(key, object: @model, field_class: self.class::Field)
       end
@@ -48,7 +47,10 @@ module Protoform
 
       def around_template(&block)
         form_tag do
-          authenticity_token_field if @authenticity_token
+          if @authenticity_token
+            authenticity_token_field 
+          end
+
           _method_field
           super
         end
