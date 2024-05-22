@@ -5,7 +5,7 @@ module Protoform
     module Components
       class Select < FieldComponent
         option :collection, default: -> { [] }
-        option :include_blank, default: -> { true }
+        option :include_blank, default: -> { true }, reader: false
         option :multiple, reader: false, default: -> { false }
 
         def view_template(&options)
@@ -23,7 +23,7 @@ module Protoform
             select(multiple: @multiple, **attrs, name:, &options)
           else
             select(multiple: @multiple, **attrs, name:) do
-              blank_option
+              blank_option if @include_blank
               options(*@collection)
             end
           end
