@@ -14,7 +14,7 @@ RSpec.describe Protoform::Rails::Form, type: :view do
         end
 
         def persisted?
-          true
+          false
         end
 
         attribute :name
@@ -59,7 +59,13 @@ RSpec.describe Protoform::Rails::Form, type: :view do
     before do
       model = TestModel.new(addresses: [Address.new(street: "123 Main St")])
       helpers = double("Helpers", form_authenticity_token: "token", url_for: "/")
-      form = TestForm.new(model, helpers:, authenticity_token: false, action: "/posts")
+      form = TestForm.new(
+        model,
+        helpers:,
+        authenticity_token: false,
+        action: "/posts",
+        method: :patch
+      )
 
       render form
     end
@@ -75,7 +81,10 @@ RSpec.describe Protoform::Rails::Form, type: :view do
     before do
       model = TestModel.new(addresses: [Address.new(street: "123 Main St")])
       helpers = double("Helpers", form_authenticity_token: "token", url_for: "/")
-      form = TestForm.new(model, helpers:, method: :post)
+      form = TestForm.new(model, helpers:, method: :patch)
+
+      # method: :patch should override the persisted? false from the model
+      expect(helpers).to receive(:url_for).with(action: :update)
 
       form.assign(
         name: "Test",
@@ -93,7 +102,7 @@ RSpec.describe Protoform::Rails::Form, type: :view do
 
     it "renders the rails based form fields" do
       expect(page).to have_field(type: "hidden", name: "authenticity_token", with: "token")
-      expect(page).to have_field(type: "hidden", name: "_method", with: "post")
+      expect(page).to have_field(type: "hidden", name: "_method", with: "patch")
     end
 
     it "renders the form fields" do

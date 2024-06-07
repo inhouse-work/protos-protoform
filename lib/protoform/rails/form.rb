@@ -20,7 +20,7 @@ module Protoform
       option :action, reader: false, default: -> {}
       option :method,
              reader: false,
-             default: -> { }
+             default: -> {}
       option :namespace, reader: false, default: -> do
         Namespace.root(key, object: @model, field_class: self.class::Field)
       end
@@ -47,12 +47,10 @@ module Protoform
 
       def around_template(&block)
         form_tag do
-          if @authenticity_token
-            authenticity_token_field 
-          end
+          authenticity_token_field if @authenticity_token
 
           _method_field
-          super(&block)
+          super
         end
       end
 
@@ -110,6 +108,8 @@ module Protoform
       end
 
       def resource_action
+        return :update if @method == :patch
+
         @model.persisted? ? :update : :create
       end
 
