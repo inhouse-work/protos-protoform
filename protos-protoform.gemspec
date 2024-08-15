@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary = "Phlex based form builder for Rails"
   spec.description = "Build phlex based forms using Rails conventions"
-  spec.homepage = "https://github.com/nolantait/protos-protoform"
+  spec.homepage = "https://github.com/inhouse-work/protos-protoform"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.1.0"
 
