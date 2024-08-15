@@ -114,7 +114,7 @@ module Protoform
       end
 
       def form_action
-        @action ||= helpers.url_for(action: resource_action)
+        @form_action ||= @action || helpers.url_for(action: resource_action)
       end
 
       def form_method

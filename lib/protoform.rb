@@ -7,7 +7,6 @@ module Protoform
   Loader = Zeitwerk::Loader.for_gem.tap do |loader|
     loader.ignore "#{__dir__}/generators"
     loader.inflector.inflect(
-      # rubocop:disable Style/StringHashKeys
       "dom" => "DOM"
       # rubocop:enable Style/StringHashKeys
     )
