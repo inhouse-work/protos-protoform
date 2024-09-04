@@ -36,6 +36,10 @@ module Protoform
           Components::Checkbox.new(self, ...)
         end
 
+        def radio_button(value, **)
+          Components::RadioButton.new(self, value:, **)
+        end
+
         def label(...)
           Components::Label.new(self, ...)
         end
