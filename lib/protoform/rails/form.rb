@@ -16,11 +16,11 @@ module Protoform
     class Form < Component
       param :model, reader: false
       option :authenticity_token, reader: false, default: -> { true }
-      option :helpers, reader: false, default: -> {}
-      option :action, reader: false, default: -> {}
+      option :helpers, reader: false, default: -> { }
+      option :action, reader: false, default: -> { }
       option :method,
              reader: false,
-             default: -> {}
+             default: -> { }
       option :namespace, reader: false, default: -> do
         Namespace.root(key, object: @model, field_class: self.class::Field)
       end
