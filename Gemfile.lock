@@ -5,7 +5,7 @@ PATH
       activerecord (~> 7.0)
       activesupport (~> 7.0)
       phlex-rails (~> 1.0)
-      protos (~> 0.4)
+      protos (~> 0.6)
       zeitwerk (~> 2.6)
 
 GEM
@@ -125,7 +125,7 @@ GEM
     phlex-testing-capybara (0.1.0)
       capybara (~> 3.38)
       phlex (>= 0.5)
-    protos (0.5.0)
+    protos (0.6.0)
       dry-core (~> 1.0)
       dry-initializer (~> 3.1)
       dry-types (~> 1.7)

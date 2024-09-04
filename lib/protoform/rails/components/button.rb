@@ -12,7 +12,8 @@ module Protoform
         private
 
         def button_text
-          attrs.fetch(:value, dom.value).titleize
+          text = attrs[:value] || dom.value
+          text.titleize
         end
 
         def default_attrs
