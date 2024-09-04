@@ -5,7 +5,7 @@ module Protoform
     module Components
       class Label < Component
         def view_template(&content)
-          content ||= proc { field.key.to_s.titleize }
+          content ||= proc { title }
           label(**attrs, &content)
         end
 
