@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "active_record"
+
 module Protoform
   module Rails
     # Accept a collection of objects and map them to options suitable for form
