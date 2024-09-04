@@ -36,6 +36,14 @@ module Protoform
           Components::Checkbox.new(self, ...)
         end
 
+        def date(...)
+          Components::Date.new(self, ...)
+        end
+
+        def time(...)
+          Components::Time.new(self, ...)
+        end
+
         def datetime(...)
           Components::Datetime.new(self, ...)
         end
