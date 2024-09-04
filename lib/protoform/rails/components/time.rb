@@ -3,7 +3,7 @@
 module Protoform
   module Rails
     module Components
-      class Datetime < Input
+      class Time < Input
         option :value, default: -> { field.value }
         option :include_seconds, default: -> { true }, reader: false
         option :min, default: -> { }
@@ -14,16 +14,16 @@ module Protoform
         def default_attrs
           super.merge(
             {
-              type: "datetime-local",
-              value: datetime_value(value)
+              type: "time",
+              value: time_value(value)
             }
           ).tap do |attrs|
-            attrs[:min] = datetime_value(min) if min
-            attrs[:max] = datetime_value(max) if max
+            attrs[:min] = time_value(min) if min
+            attrs[:max] = time_value(max) if max
           end
         end
 
-        def datetime_value(value)
+        def time_value(value)
           return unless value
 
           if value.is_a?(String)
@@ -35,9 +35,9 @@ module Protoform
           end
 
           if @include_seconds
-            value.strftime("%Y-%m-%dT%T")
+            value.strftime("%T.%L")
           else
-            value.strftime("%Y-%m-%dT%H:%M")
+            value.strftime("%H:%M")
           end
         end
       end

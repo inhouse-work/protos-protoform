@@ -38,9 +38,9 @@ module Protoform
             "url"
           when Integer
             "number"
-          when Date, DateTime
+          when ::Date, ::DateTime
             "date"
-          when Time
+          when ::Time
             "time"
           else
             "text"
