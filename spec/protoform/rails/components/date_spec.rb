@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Protoform::Rails::Components::Date, type: :view do
-  it "renders a datetime-local field" do
+  it "renders a date field" do
     object = double(:object, date: Date.new(2024, 1, 1))
     field = Protoform::Field.new(:date, parent: nil, object:)
 
