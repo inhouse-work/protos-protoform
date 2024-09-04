@@ -36,6 +36,10 @@ module Protoform
           Components::Checkbox.new(self, ...)
         end
 
+        def datetime(...)
+          Components::Datetime.new(self, ...)
+        end
+
         def radio_button(value, **)
           Components::RadioButton.new(self, value:, **)
         end
