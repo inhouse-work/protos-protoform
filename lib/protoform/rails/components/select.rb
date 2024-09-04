@@ -31,10 +31,7 @@ module Protoform
 
         def options(*collection)
           map_options(collection).each do |key, value|
-            option(
-              selected: selected_value_for(key) ? "selected" : false,
-              value: key
-            ) { value }
+            option(selected: selected_value_for(key), value: key) { value }
           end
         end
 
@@ -53,6 +50,10 @@ module Protoform
         protected
 
         def selected_value_for(key)
+          selected?(key) ? "selected" : false
+        end
+
+        def selected?(key)
           case field.value
           when String, Symbol
             field.value.to_s == key.to_s
