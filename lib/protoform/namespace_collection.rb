@@ -37,12 +37,12 @@ module Protoform
       end
     end
 
-    def build_namespace(index, **kwargs)
+    def build_namespace(index, **)
       parent.class.new(
         index,
         parent: self,
         field_class: @field_class,
-        **kwargs,
+        **,
         &@template
       )
     end

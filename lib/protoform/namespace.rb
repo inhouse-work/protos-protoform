@@ -120,8 +120,8 @@ module Protoform
     end
 
     # Creates a root Namespace, which is essentially a form.
-    def self.root(*args, **kwargs, &block)
-      new(*args, parent: nil, **kwargs, &block)
+    def self.root(*, **, &block)
+      new(*, parent: nil, **, &block)
     end
 
     protected
@@ -141,7 +141,7 @@ module Protoform
 
     # Checks if the child exists. If it does then it returns that. If it
     # doesn't, it will build the child.
-    def create_child(key:, child_class:, **kwargs, &block)
+    def create_child(key:, child_class:, **, &block)
       if (child = @children.fetch(key, nil))
         # ensure that found children are also yielded
         child.tap { yield child if block }
@@ -150,7 +150,7 @@ module Protoform
         @children[key] = child_class.new(
           key,
           parent: self,
-          **kwargs,
+          **,
           &block
         )
       end
