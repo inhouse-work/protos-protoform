@@ -16,7 +16,7 @@ module Protoform
         def label_id
           return dom.id unless value
 
-          [dom.id, value.parameterize.underscore].join("_")
+          [dom.id, value.to_s.parameterize.underscore].join("_")
         end
 
         def default_attrs
