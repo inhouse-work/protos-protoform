@@ -11,7 +11,7 @@ module Protoform
         private
 
         def radio_id
-          [dom.id, value.parameterize.underscore].join("_")
+          [dom.id, value.to_s.parameterize.underscore].join("_")
         end
 
         def checked?
