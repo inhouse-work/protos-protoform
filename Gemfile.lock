@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    protos-protoform (0.0.2)
+    protos-protoform (0.1.0)
       activerecord (~> 7.0)
       activesupport (~> 7.0)
       phlex-rails (~> 1.0)

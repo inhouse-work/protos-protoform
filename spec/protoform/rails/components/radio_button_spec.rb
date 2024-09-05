@@ -16,4 +16,20 @@ RSpec.describe Protoform::Rails::Components::RadioButton, type: :view do
       name: "marital_status"
     )
   end
+
+  it "allows overriding the value" do
+    object = double(:object, marital_status: nil)
+    field = Protoform::Field.new(:marital_status, parent: nil, object:)
+
+    render described_class.new(field, value: "Married")
+
+    expect(page).to have_field(
+      :marital_status,
+      type: :radio,
+      checked: false,
+      with: "Married",
+      id: "marital_status_married",
+      name: "marital_status"
+    )
+  end
 end

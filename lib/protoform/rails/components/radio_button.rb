@@ -11,9 +11,7 @@ module Protoform
         private
 
         def radio_id
-          return dom.id if dom.value.nil?
-
-          [dom.id, dom.value.parameterize.underscore].join("_")
+          [dom.id, value.parameterize.underscore].join("_")
         end
 
         def checked?
@@ -24,7 +22,7 @@ module Protoform
           {
             id: radio_id,
             name: dom.name,
-            value: dom.value,
+            value:,
             type: "radio",
             checked: checked? ? "checked" : false
           }
