@@ -47,9 +47,9 @@ module Protoform
 
       def around_template(&block)
         form_tag do
-          authenticity_token_field if @authenticity_token
+          authenticity_token_field if authenticity_token?
+          _method_field if method_field?
 
-          _method_field
           super
         end
       end
@@ -82,6 +82,19 @@ module Protoform
       end
 
       protected
+
+      def authenticity_token?
+        return false if _method_field_value == :get
+
+        @authenticity_token
+      end
+
+      def method_field?
+        return false if _method_field_value == :post
+        return false if _method_field_value == :get
+
+        true
+      end
 
       def authenticity_token_field
         input(

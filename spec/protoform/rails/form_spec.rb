@@ -3,6 +3,9 @@
 require "active_model"
 
 RSpec.describe Protoform::Rails::Form, type: :view do
+  let(:model) { TestModel.new(addresses: [Address.new(street: "123 Main St")]) }
+  let(:helpers) { double("Helpers", form_authenticity_token: "token", url_for: "/") }
+
   before do
     stub_const(
       "TestModel", Class.new do
@@ -55,10 +58,33 @@ RSpec.describe Protoform::Rails::Form, type: :view do
     )
   end
 
+  context "with a GET method" do
+    before do
+      form = TestForm.new(
+        model,
+        helpers:,
+        action: "/posts",
+        method: :get
+      )
+
+      render form
+    end
+
+    it "renders the expected action and method" do
+      expect(page).to have_css("form[method='get'][action='/posts']")
+    end
+
+    it "doesn't render a method field" do
+      expect(page).to have_no_field(type: "hidden", name: "_method")
+    end
+
+    it "renders the form without an authenticity token" do
+      expect(page).to have_no_field(type: "hidden", name: "authenticity_token")
+    end
+  end
+
   context "without an authenticity token" do
     before do
-      model = TestModel.new(addresses: [Address.new(street: "123 Main St")])
-      helpers = double("Helpers", form_authenticity_token: "token", url_for: "/")
       form = TestForm.new(
         model,
         helpers:,
@@ -70,17 +96,21 @@ RSpec.describe Protoform::Rails::Form, type: :view do
       render form
     end
 
-    it "renders the form without an authenticity token" do
+    it "renders the expected action and method" do
       expect(page).to have_css("form[method='post'][action='/posts']")
-      expect(page).to have_no_field(type: "hidden", name: "authenticity_token")
+    end
+
+    it "renders the expected method field" do
       expect(page).to have_field(type: "hidden", name: "_method", with: "patch")
+    end
+
+    it "renders the form without an authenticity token" do
+      expect(page).to have_no_field(type: "hidden", name: "authenticity_token")
     end
   end
 
   context "with defaults" do
     before do
-      model = TestModel.new(addresses: [Address.new(street: "123 Main St")])
-      helpers = double("Helpers", form_authenticity_token: "token", url_for: "/")
       form = TestForm.new(model, helpers:, method: :patch)
 
       # method: :patch should override the persisted? false from the model
