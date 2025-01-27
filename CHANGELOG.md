@@ -1,5 +1,14 @@
 ## [Unreleased]
 
+## [0.1.1] - 2025-01-26
+
+- Bumps `protos` to `~> 0.7`
+- Bumps `activerecord` and `activesupport` requirements to `~> 8.0`
+- Hides authenticity token and method field when the form has a GET method
+  automatically
+- Fixes passing symbol values to labels
+- Fixes passing wrong values to radio button components
+
 ## [0.1.0] - 2024-09-04
 
 - Adds tests for all Rails components
