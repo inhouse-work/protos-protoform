@@ -31,7 +31,7 @@ module Protoform
 
         def options(*collection)
           map_options(collection).each do |key, value|
-            option(selected: selected_value_for(key), value: key) { value }
+            option(selected: selected_value_for(key), value: key.to_s) { value }
           end
         end
 
