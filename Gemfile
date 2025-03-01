@@ -6,8 +6,9 @@ source "https://rubygems.org"
 gemspec
 
 gem "activemodel"
+gem "capybara"
 gem "debug"
-gem "phlex-testing-capybara"
+gem "protos", path: "../protos"
 gem "rake"
 gem "rspec"
 gem "rubocop-inhouse"

@@ -2,7 +2,6 @@
 
 require "protoform"
 require "debug"
-require "phlex/testing/capybara"
 
 ApplicationComponent = Class.new(Protos::Component)
 
@@ -16,6 +15,6 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
-
-  config.include Phlex::Testing::Capybara::ViewHelper, type: :view
 end
+
+Pathname.glob(Pathname(__dir__).join("support/**/*.rb")).each { |file| require file }
