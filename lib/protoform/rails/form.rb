@@ -19,8 +19,8 @@ module Protoform
       option :helpers, reader: false, default: -> { }
       option :action, reader: false, default: -> { }
       option :method,
-             reader: false,
-             default: -> { }
+        reader: false,
+        default: -> { }
       option :namespace, reader: false, default: -> do
         Namespace.root(key, object: @model, field_class: self.class::Field)
       end
@@ -45,7 +45,7 @@ module Protoform
         @namespace.serialize(...)
       end
 
-      def around_template(&block)
+      def around_template(&)
         form_tag do
           authenticity_token_field if authenticity_token?
           _method_field if method_field?
@@ -54,27 +54,26 @@ module Protoform
         end
       end
 
-      def form_tag(&block)
+      def form_tag(&)
         form(
           action: form_action,
           method: form_method,
           **attrs,
-          &block
+          &
         )
       end
 
-      def view_template(&block)
-        yield_content(&block)
+      def view_template(&)
+        yield_content(&)
       end
 
       def submit(value = submit_value, **attributes)
         input(
-          **attributes.merge(
-            name: "commit",
-            type: "submit",
-            value:
-          )
-        )
+          **attributes,
+name: "commit",
+type: "submit",
+value:
+                  )
       end
 
       def key

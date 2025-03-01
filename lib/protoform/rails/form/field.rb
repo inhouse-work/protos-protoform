@@ -60,12 +60,12 @@ module Protoform
           Components::Textarea.new(self, ...)
         end
 
-        def select(*collection, **attributes, &block)
+        def select(*collection, **attributes, &)
           Components::Select.new(
             self,
             collection:,
             **attributes,
-            &block
+            &
           )
         end
 

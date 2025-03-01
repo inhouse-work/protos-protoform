@@ -20,7 +20,7 @@ class ApplicationForm < Protoform::Rails::Form
     end
   end
 
-  def around_template(&block)
+  def around_template(&)
     super do
       error_messages
       yield
@@ -34,7 +34,7 @@ class ApplicationForm < Protoform::Rails::Form
     div(style: "color: red;") do
       h2 do
         "#{pluralize model.errors.count,
-                     "error"} prohibited this post from being saved:"
+          "error"} prohibited this post from being saved:"
       end
       ul do
         model.errors.each do |error|

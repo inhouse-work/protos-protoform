@@ -31,8 +31,8 @@ module Protoform
 
     # Wraps a field that's an array of values with a bunch of fields
     # that are indexed with the array's index.
-    def collection(&block)
-      @collection ||= FieldCollection.new(field: self, &block)
+    def collection(&)
+      @collection ||= FieldCollection.new(field: self, &)
     end
   end
 end

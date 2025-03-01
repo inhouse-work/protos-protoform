@@ -27,7 +27,7 @@ module Protoform
 
     def create_application_form
       template "application_form.rb",
-               Rails.root.join("app/views/forms/application_form.rb")
+        Rails.root.join("app/views/forms/application_form.rb")
     end
 
     private

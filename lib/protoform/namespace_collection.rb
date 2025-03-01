@@ -23,8 +23,8 @@ module Protoform
       end
     end
 
-    def each(&block)
-      @namespaces.each(&block)
+    def each(&)
+      @namespaces.each(&)
     end
 
     private

@@ -38,13 +38,13 @@ module Protoform
     #   end
     # end
     # ```
-    def namespace(key, &block)
+    def namespace(key, &)
       create_child(
         key:,
         child_class: self.class,
         field_class: @field_class,
         object: object_for(key:),
-        &block
+        &
       )
     end
 
@@ -84,12 +84,12 @@ module Protoform
     # ```
     # The object within the block is a `Namespace` object that maps each object
     # within the enumerable to another `Namespace` or `Field`.
-    def collection(key, &block)
+    def collection(key, &)
       create_child(
         key:,
         child_class: NamespaceCollection,
         field_class: @field_class,
-        &block
+        &
       )
     end
 
@@ -106,8 +106,8 @@ module Protoform
 
     # Iterates through the children of the current namespace, which could be
     # `Namespace` or `Field` objects.
-    def each(&block)
-      @children.values.each(&block)
+    def each(&)
+      @children.values.each(&)
     end
 
     # Assigns a hash to the current namespace and children namespace.
@@ -120,8 +120,8 @@ module Protoform
     end
 
     # Creates a root Namespace, which is essentially a form.
-    def self.root(*, **, &block)
-      new(*, parent: nil, **, &block)
+    def self.root(*, **, &)
+      new(*, parent: nil, **, &)
     end
 
     protected

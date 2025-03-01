@@ -35,16 +35,16 @@ module Protoform
           end
         end
 
-        def blank_option(&block)
-          option(selected: field.value.nil?, &block)
+        def blank_option(&)
+          option(selected: field.value.nil?, &)
         end
 
-        def true_option(&block)
-          option(selected: field.value == true, value: true.to_s, &block)
+        def true_option(&)
+          option(selected: field.value == true, value: true.to_s, &)
         end
 
-        def false_option(&block)
-          option(selected: field.value == false, value: false.to_s, &block)
+        def false_option(&)
+          option(selected: field.value == false, value: false.to_s, &)
         end
 
         protected
