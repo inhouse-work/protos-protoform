@@ -8,7 +8,6 @@ gemspec
 gem "activemodel"
 gem "capybara"
 gem "debug"
-gem "protos", path: "../protos"
 gem "rake"
 gem "rspec"
 gem "rubocop-inhouse"

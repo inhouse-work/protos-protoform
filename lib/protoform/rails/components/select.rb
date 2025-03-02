@@ -40,11 +40,19 @@ module Protoform
         end
 
         def true_option(&)
-          option(selected: field.value == true, value: true.to_s, &)
+          option(
+            selected: field.value == true,
+            value: true.to_s,
+            &
+          )
         end
 
         def false_option(&)
-          option(selected: field.value == false, value: false.to_s, &)
+          option(
+            selected: field.value == false,
+            value: false.to_s,
+            &
+          )
         end
 
         protected

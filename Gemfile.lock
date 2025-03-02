@@ -1,14 +1,4 @@
 PATH
-  remote: ../protos
-  specs:
-    protos (1.0.0)
-      dry-core (~> 1.1)
-      dry-initializer (~> 3.2)
-      dry-types (~> 1.8)
-      phlex (~> 2)
-      tailwind_merge (~> 1)
-
-PATH
   remote: .
   specs:
     protos-protoform (1.0.0)
@@ -142,6 +132,11 @@ GEM
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
+    protos (1.0.1)
+      dry-initializer (~> 3.2)
+      dry-types (~> 1.8)
+      phlex (~> 2)
+      tailwind_merge (~> 1)
     psych (5.2.3)
       date
       stringio
@@ -266,7 +261,6 @@ DEPENDENCIES
   activemodel
   capybara
   debug
-  protos!
   protos-protoform!
   rake
   rspec

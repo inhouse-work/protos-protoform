@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "phlex-rails"
+
 module Protoform
   module Rails
     # A Protos::Component class that accepts a model and sets
@@ -14,9 +16,11 @@ module Protoform
     # `authenticity_toklen_field` method and the HTTP verb via the
     # `_method_field`.
     class Form < Component
+      include Phlex::Rails::Helpers::URLFor
+      include Phlex::Rails::Helpers::FormAuthenticityToken
+
       param :model, reader: false
       option :authenticity_token, reader: false, default: -> { true }
-      option :helpers, reader: false, default: -> { }
       option :action, reader: false, default: -> { }
       option :method,
         reader: false,
@@ -70,10 +74,10 @@ module Protoform
       def submit(value = submit_value, **attributes)
         input(
           **attributes,
-name: "commit",
-type: "submit",
-value:
-                  )
+          name: "commit",
+          type: "submit",
+          value:
+        )
       end
 
       def key
@@ -99,7 +103,7 @@ value:
         input(
           name: "authenticity_token",
           type: "hidden",
-          value: helpers.form_authenticity_token
+          value: @authenticity_token || form_authenticity_token
         )
       end
 
@@ -126,17 +130,11 @@ value:
       end
 
       def form_action
-        @form_action ||= @action || helpers.url_for(action: resource_action)
+        @form_action ||= @action || url_for(action: resource_action)
       end
 
       def form_method
         @method == :get ? :get : :post
-      end
-
-      private
-
-      def helpers
-        @helpers ||= super
       end
     end
   end
