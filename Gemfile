@@ -6,8 +6,8 @@ source "https://rubygems.org"
 gemspec
 
 gem "activemodel"
+gem "capybara"
 gem "debug"
-gem "phlex-testing-capybara"
 gem "rake"
 gem "rspec"
 gem "rubocop-inhouse"

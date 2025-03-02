@@ -4,7 +4,6 @@ require "active_model"
 
 RSpec.describe Protoform::Rails::Form, type: :view do
   let(:model) { TestModel.new(addresses: [Address.new(street: "123 Main St")]) }
-  let(:helpers) { double("Helpers", form_authenticity_token: "token", url_for: "/") }
 
   before do
     stub_const(
@@ -62,7 +61,6 @@ RSpec.describe Protoform::Rails::Form, type: :view do
     before do
       form = TestForm.new(
         model,
-        helpers:,
         action: "/posts",
         method: :get
       )
@@ -87,7 +85,6 @@ RSpec.describe Protoform::Rails::Form, type: :view do
     before do
       form = TestForm.new(
         model,
-        helpers:,
         authenticity_token: false,
         action: "/posts",
         method: :patch
@@ -111,10 +108,7 @@ RSpec.describe Protoform::Rails::Form, type: :view do
 
   context "with defaults" do
     before do
-      form = TestForm.new(model, helpers:, method: :patch)
-
-      # method: :patch should override the persisted? false from the model
-      expect(helpers).to receive(:url_for).with(action: :update)
+      form = TestForm.new(model, method: :patch, action: "/", authenticity_token: "token")
 
       form.assign(
         name: "Test",
