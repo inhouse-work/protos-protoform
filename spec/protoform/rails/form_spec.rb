@@ -108,7 +108,13 @@ RSpec.describe Protoform::Rails::Form, type: :view do
 
   context "with defaults" do
     before do
-      form = TestForm.new(model, method: :patch, action: "/", authenticity_token: "token")
+      form = TestForm.new(
+        model,
+        method: :patch,
+        action: "/"
+      )
+
+      allow(form).to receive(:form_authenticity_token).and_return("token")
 
       form.assign(
         name: "Test",

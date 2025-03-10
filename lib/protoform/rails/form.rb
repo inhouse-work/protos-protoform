@@ -100,10 +100,15 @@ module Protoform
       end
 
       def authenticity_token_field
+        return unless @authenticity_token
+
+        value = @authenticity_token
+        value = form_authenticity_token if value == true
+
         input(
           name: "authenticity_token",
           type: "hidden",
-          value: @authenticity_token || form_authenticity_token
+          value:
         )
       end
 
