@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+## [1.0.1] - 2025-03-09
+
+- Fixes authenticity not rendering if not explicitly given
+
 ## [1.0.0] - 2025-03-01
 
 - Updates `protos` to `~> 1.0`
