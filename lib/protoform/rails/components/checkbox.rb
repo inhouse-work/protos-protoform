@@ -7,7 +7,12 @@ module Protoform
         def view_template
           # Rails has a hidden and checkbox input to deal with sending back
           # a value to the server regardless of if the input is checked or not.
-          input(name: dom.name, type: :hidden, value: "0")
+          input(
+            type: :hidden,
+            value: "0",
+            autocomplete: "off",
+            **attrs.to_hash.slice(:name)
+          )
           # The hard coded keys need to be in here so the user can't overrite
           # them.
           input(type: :checkbox, value: "1", **attrs)
