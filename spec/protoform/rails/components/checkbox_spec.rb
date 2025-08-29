@@ -30,13 +30,13 @@ RSpec.describe Protoform::Rails::Components::Checkbox, type: :view do
       field,
       include_hidden: false,
       checked_value: "yes",
-      checked: true
+      checked: false
     )
 
     expect(page).to have_field(
       :foo,
       type: :checkbox,
-      checked: true,
+      checked: false,
       with: "yes",
       id: "foo",
       name: "foo"
