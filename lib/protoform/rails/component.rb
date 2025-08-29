@@ -4,6 +4,6 @@ require "active_support/core_ext/string/inflections"
 
 module Protoform
   module Rails
-    Component = ::ApplicationComponent
+    Component = Protos::Component
   end
 end

@@ -26,8 +26,7 @@ This will:
 
 This gem follows the same conventions as Superform with some key differences:
 
-- Components are expected to inherit from `Protos::Component` so your
-  `ApplicationComponent` should inherit from that
+- All components inherit from `Protos::Component`
 
 ## Development
 
