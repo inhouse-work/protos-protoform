@@ -1,4 +1,8 @@
-## [Unreleased]
+## [Unreleased (1.1.0)]
+
+- Removes inheritance from `ApplicationComponent`. This was always pretty bad,
+  not real need to do so
+- Adds submit button
 
 ## [1.0.1] - 2025-03-09
 
