@@ -3,6 +3,8 @@
 - Removes inheritance from `ApplicationComponent`. This was always pretty bad,
   not real need to do so
 - Adds submit button
+- Fixes field collections handling being passed a block, used to only return an
+  `Enumerator`. This fixes using collections.
 
 ## [1.0.1] - 2025-03-09
 
