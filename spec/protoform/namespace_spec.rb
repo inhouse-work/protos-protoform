@@ -29,6 +29,19 @@ RSpec.describe Protoform::Namespace do
         expect(child.value).to eq("A")
       end
     end
+
+    it "allows defining the same field twice" do
+      parent = described_class.new(:foo, parent: nil, object: nil)
+
+      parent.field("bar", value: "A") do |child|
+        expect(child.value).to eq("A")
+      end
+
+      # Does not currently override the value
+      parent.field("bar", value: "B") do |child|
+        expect(child.value).to eq("A")
+      end
+    end
   end
 
   describe "#collection" do

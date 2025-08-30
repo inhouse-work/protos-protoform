@@ -145,7 +145,7 @@ module Protoform
     def create_child(key:, child_class:, **, &block)
       if @children.key?(key)
         # ensure that found children are also yielded
-        child.fetch(key).tap { yield child if block }
+        @children.fetch(key).tap { yield child if block }
       else
         # new children added to hash and block passed to constructor
         @children[key] = child_class.new(
