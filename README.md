@@ -1,10 +1,7 @@
 # Protoform
 
-An experimental fork of [Superform](https://github.com/rubymonolith/superform).
+This is a more opinionated version of [Superform](https://github.com/rubymonolith/superform).
 Uses [protos](https://github.com/inhouse-work/protos) as base components.
-
-This is a more opinionated version of Superform. My goal is to maintain feature
-parity with and contribute features back to Superform.
 
 ## Usage
 
