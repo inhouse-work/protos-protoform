@@ -10,11 +10,17 @@ module Protoform
       each(&block) if block
     end
 
-    def each
-      Enumerator.new do |collection|
+    def each(&block)
+      enum = Enumerator.new do |collection|
         values.each do |value|
           collection.yield build_field(value:)
         end
+      end
+
+      if block
+        enum.each(&block)
+      else
+        enum
       end
     end
 
