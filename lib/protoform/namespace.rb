@@ -142,9 +142,9 @@ module Protoform
     # Checks if the child exists. If it does then it returns that. If it
     # doesn't, it will build the child.
     def create_child(key:, child_class:, **, &block)
-      if (child = @children.fetch(key, nil))
+      if @children.key?(key)
         # ensure that found children are also yielded
-        child.tap { yield child if block }
+        child.fetch(key).tap { yield child if block }
       else
         # new children added to hash and block passed to constructor
         @children[key] = child_class.new(
