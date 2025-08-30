@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module Protoform
+  # A collection of fields, typically used for fields that can have
+  # multiple values (e.g., arrays).
   class FieldCollection
     include Enumerable
 

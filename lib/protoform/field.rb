@@ -58,6 +58,11 @@ module Protoform
     #     end
     #   end
     #
+    #   # We can also change the value the field enumerates over
+    #   field(:tag_ids, value: [1, 2, 3]).collection.each do |field|
+    #     # ...
+    #   end
+    #
     # @return [Enumerator]
     # @yield [Protoform::Field] each field in the collection
     def collection(&)
