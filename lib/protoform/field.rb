@@ -4,6 +4,10 @@ module Protoform
   class Field < Node
     attr_reader :dom, :object
 
+    # @param key [Symbol] the key for this field
+    # @param parent [Protoform::Form, Protoform::FieldCollection] the parent
+    # @param object [Object, nil] the object to read/write values from/to
+    # @param value [Object, nil] the value to use if no object is given
     def initialize(key, parent:, object: nil, value: nil)
       super(key, parent:)
       @object = object
@@ -11,6 +15,8 @@ module Protoform
       @dom = Protoform::DOM.new(field: self)
     end
 
+    # Get the value of this field, either from the object or from the value.
+    # @return [Object] the value of this field
     def value
       if @object.respond_to? @key.to_s
         @object.send @key
@@ -18,8 +24,11 @@ module Protoform
         @value
       end
     end
+
     alias serialize value
 
+    # Set the value of this field, either on the object or on the value.
+    # @param value [Object] the value to set
     def assign(value)
       if @object.respond_to? :"#{@key}="
         @object.send :"#{@key}=", value
@@ -27,10 +36,31 @@ module Protoform
         @value = value
       end
     end
+
     alias value= assign
 
     # Wraps a field that's an array of values with a bunch of fields
-    # that are indexed with the array's index.
+    # that are indexed with the array's index. Passing a block will yield each
+    # of the indexed fields to the block. If no block is given, an `Enumerator`
+    # is returned instead.
+    #
+    # @example
+    #   field(:tag_ids).collection do |field|
+    #     field.label do
+    #       field.input(type: "checkbox", value: field.value)
+    #     end
+    #   end
+    #
+    #   enum = field(:tag_ids).collection
+    #   enum.each do |field|
+    #     field.label do
+    #         field.input(type: "checkbox", value: field.value)
+    #       end
+    #     end
+    #   end
+    #
+    # @return [Enumerator]
+    # @yield [Protoform::Field] each field in the collection
     def collection(&)
       @collection ||= FieldCollection.new(field: self, &)
     end
