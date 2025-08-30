@@ -18,11 +18,10 @@ module Protoform
     # Get the value of this field, either from the object or from the value.
     # @return [Object] the value of this field
     def value
-      if @object.respond_to? @key.to_s
-        @object.send @key
-      else
-        @value
-      end
+      return @value if @value
+      return unless @object.respond_to? @key.to_s
+
+      @object.send @key
     end
 
     alias serialize value

@@ -28,7 +28,7 @@ RSpec.describe Protoform::Field do
     end
 
     it "returns the value if the object does not respond to" do
-      object = double("object")
+      object = double("object", foo: :baz)
       field = described_class.new(:foo, parent: nil, object:, value: :bar)
 
       expect(field.value).to eq(:bar)
