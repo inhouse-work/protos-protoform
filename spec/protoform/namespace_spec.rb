@@ -12,11 +12,18 @@ RSpec.describe Protoform::Namespace do
   end
 
   describe "#field" do
+    let(:parent) { described_class.new(:foo, parent: nil, object: nil) }
+
     it "yields the field" do
-      parent = described_class.new(:foo, parent: nil, object: nil)
       parent.field("bar") do |child|
         expect(child).to be_a(Protoform::Field)
         expect(child.key).to eq("bar")
+      end
+    end
+
+    it "allows overriding the value" do
+      parent.field("bar", value: "A") do |child|
+        expect(child.value).to eq("A")
       end
     end
   end

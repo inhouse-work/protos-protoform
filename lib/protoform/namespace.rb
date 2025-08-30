@@ -58,11 +58,12 @@ module Protoform
     #   form.field :name
     # end
     # ```
-    def field(key)
+    def field(key, **)
       create_child(
         key:,
         child_class: @field_class,
-        object:
+        object:,
+        **
       ).tap do |field|
         yield field if block_given?
       end
