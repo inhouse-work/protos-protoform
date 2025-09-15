@@ -8,11 +8,11 @@ module Protoform
         # the html_options hash from Protos.
         option :value
 
-        private
-
         def radio_id
           [dom.id, value.to_s.parameterize.underscore].join("_")
         end
+
+        private
 
         def checked?
           dom.value == field.value
