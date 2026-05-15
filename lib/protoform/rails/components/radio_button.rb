@@ -15,7 +15,11 @@ module Protoform
         private
 
         def checked?
-          dom.value == field.value
+          radio_value == field.value
+        end
+
+        def radio_value
+          value || dom.value
         end
 
         def default_attrs

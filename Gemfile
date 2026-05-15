@@ -8,6 +8,7 @@ gemspec
 gem "activemodel"
 gem "capybara"
 gem "debug"
+gem "ostruct"
 gem "rake"
 gem "rspec"
 gem "rubocop-inhouse"
